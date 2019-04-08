@@ -56,7 +56,7 @@ export default {
     },
     methods: {
         createUser(){
-            axios.post('http://localhost:3000/api/users', {
+            axios.post('http://raizen-api.herokuapp.com/api/users', {
                 name: this.User.name,
                 email: this.User.email
             }).then((res)=>{
@@ -74,7 +74,7 @@ export default {
                 this.User = user;
                 console.log(this.User);
                 // Create an Account or Login
-                axios.post('http://localhost:3000/api/users', {
+                axios.post('http://raizen-api.herokuapp.com/api/users', {
                     profile: this.User.profile,
                     name: this.User.name,
                     email: this.User.email
