@@ -1,0 +1,121 @@
+<template>
+    <nav class="bg-white mynavbar sticky-top">
+        <div class="mycontainer">
+            <div class="row">
+                <!-- ?Brand -->
+                <div class="col-3 h2 prime mt-3"><span class="prime text-danger">R</span>aizen</div>
+                <!-- ?Search Bar -->
+                <div class="col-3 mt-3">
+                    <form class="form-inline">
+                        <input class="form-control mysearchbar bg-light" type="search" placeholder="Search"
+                            aria-label="Search">
+                    </form>
+                </div>
+                <!-- ?Navigation -->
+                <div class="col-3 d-flex mt-3 justify-content-end">
+                    <a class="nav-link" href="">Home</a>
+                    <a class="nav-link" href="">Discover</a>
+                </div>
+                <!-- ?Profile -->
+                <div class="col-3 my-2">
+                    <div class="d-flex" v-if="LoggedIn">
+                        <div class="d-flex">
+                            <img class="rounded-circle border border-dark" :src="User.profile" width="60px" height="60px">
+                            <div id="mainProfile">
+                                <div class="meduim mt-2 mx-2">{{ User.name }}</div>
+                                <div class="small mx-2">{{ User.email }}</div>
+                            </div>
+                        </div>
+                        <button class="nav-link m-2 bg-transparent border-0" @click.prevent="LogOut()">Sign Out</button>
+                    </div>
+                    <div class="d-flex" v-else>
+                        <img class="rounded-circle border border-dark" src="../assets/images/notlogin.png" width="60px"
+                            height="60px">
+                        <button class="nav-link m-2 bg-transparent border-0" @click.prevent="LogIn()">Sign In</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</template>
+
+<script>
+import axios from 'axios'
+
+export default {
+    name: 'Navbar',
+    data() {
+        return {
+            User: {
+                profile: '',
+                name: '',
+                email: ''
+            },
+            LoggedIn: false,
+        }
+    },
+    methods: {
+        createUser(){
+            axios.post('http://localhost:3000/api/users', {
+                name: this.User.name,
+                email: this.User.email
+            }).then((res)=>{
+                console.log('Post Success!')
+            });
+        },
+        LogIn(){
+            this.$gAuth.signIn().then(GoogleUser => {
+                this.LoggedIn = true;
+                const user = {
+                    profile: GoogleUser.w3.Paa,
+                    name: GoogleUser.w3.ig,
+                    email: GoogleUser.w3.U3
+                }
+                this.User = user;
+                console.log(this.User);
+                // Create an Account or Login
+                axios.post('http://localhost:3000/api/users', {
+                    profile: this.User.profile,
+                    name: this.User.name,
+                    email: this.User.email
+                }).then((res) => {
+                    console.log('Post Success!')
+                });
+            })
+        },
+        LogOut(){
+            this.LoggedIn = false;
+            this.$gAuth.signOut().then(()=>{
+                console.log('Signed Out');
+            });
+        }
+    }
+}
+</script>
+
+<style scoped>
+    .nav-link {
+        transition: 0.25s;
+        color: rgb(189, 188, 188);
+    }
+
+    .nav-link:hover {
+        color: rgb(59, 59, 59);
+    }
+
+    .prime {
+        font-family: prime;
+    }
+
+    .mynavbar {
+        box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.2);
+    }
+
+    .mysearchbar {
+        width: 400px !important;
+    }
+</style>
+
+
+
+
