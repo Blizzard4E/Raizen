@@ -9,7 +9,7 @@ new Vue({
 }).$mount('#app')
 
 const gauthOption = {
-  clientId: '16429804289-rj5621b7ncsoo2is3qs0stgebmcar9q0.apps.googleusercontent.com',
+  clientId: '16429804289-8o1ps023lc1dqoifrhlnt0krl67r7u56.apps.googleusercontent.com',
   scope: 'profile email',
   prompt: 'select_account'
 }
