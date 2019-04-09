@@ -4,6 +4,7 @@
     <div class="container">
         <div class="row mt-3">
             <div class="col-8">
+                <PostCreation />
                 <!-- <Post /> -->
             </div>
         </div>
@@ -14,12 +15,14 @@
 <script>
 import Navbar from './components/Navbar.vue'
 import Post from './components/Post.vue'
+import PostCreation from './components/PostCreation.vue'
 
 export default {
     name: 'app',
     components: {
         Navbar,
-        Post
+        Post,
+        PostCreation
     }
 }
 </script>

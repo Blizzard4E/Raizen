@@ -23,7 +23,7 @@
                             <img class="rounded-circle border border-dark" :src="User.profile" width="60px" height="60px">
                             <div id="mainProfile">
                                 <div class="meduim mt-2 mx-2">{{ User.name }}</div>
-                                <div class="small mx-2">{{ User.email }}</div>
+                                <small class="mx-2">{{ User.email }}</small>
                             </div>
                         </div>
                         <button class="nav-link m-2 bg-transparent border-0" @click.prevent="LogOut()">Sign Out</button>
@@ -44,7 +44,7 @@ import axios from 'axios'
 
 export default {
     name: 'Navbar',
-    data() {
+    data(){
         return {
             User: {
                 profile: '',
@@ -55,14 +55,6 @@ export default {
         }
     },
     methods: {
-        createUser(){
-            axios.post('http://raizen-api.herokuapp.com/api/users', {
-                name: this.User.name,
-                email: this.User.email
-            }).then((res)=>{
-                console.log('Post Success!')
-            });
-        },
         LogIn(){
             this.$gAuth.signIn().then(GoogleUser => {
                 this.LoggedIn = true;
@@ -72,22 +64,32 @@ export default {
                     email: GoogleUser.w3.U3
                 }
                 this.User = user;
-                console.log(this.User);
+                localStorage.setItem('user', JSON.stringify(user));
+                console.log(JSON.parse(localStorage.getItem('user')));
                 // Create an Account or Login
                 axios.post('http://raizen-api.herokuapp.com/api/users', {
                     profile: this.User.profile,
                     name: this.User.name,
                     email: this.User.email
-                }).then((res) => {
-                    console.log('Post Success!')
                 });
             })
         },
         LogOut(){
             this.LoggedIn = false;
-            this.$gAuth.signOut().then(()=>{
-                console.log('Signed Out');
-            });
+            this.$gAuth.signOut();
+        }
+    },
+    mounted(){
+        if(JSON.parse(localStorage.getItem('user')) != null){
+            this.User=JSON.parse(localStorage.getItem('user'));
+            this.LoggedIn=true;
+        }
+    },
+    watch: {
+        LoggedIn(val){
+            if(!val){
+                localStorage.removeItem('user');
+            }
         }
     }
 }
