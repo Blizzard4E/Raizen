@@ -17,7 +17,7 @@
                 <p class="mt-1 text-danger" v-else>Please choose an image.</p>
             </div>
             <button @click.prevent="uploadPost" class="btn btn-primary">Upload</button>
-            <div class="text-success mt-3" v-if="uploaded">Upload Successful.</div>
+            <div class="text-success mt-2" v-if="uploaded">Upload Successful.</div>
         </div>
     </form>
 </template>
