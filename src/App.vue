@@ -1,28 +1,21 @@
 <template>
   <div id="app">
     <Navbar />
-    <div class="container">
-        <div class="row mt-3">
-            <div class="col-8">
-                <PostCreation />
-                <!-- <Post /> -->
-            </div>
-        </div>
-    </div>
+    <router-view />
   </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue'
-import Post from './components/Post.vue'
-import PostCreation from './components/PostCreation.vue'
+import Posts from './components/Posts.vue'
+import Upload from './components/Upload.vue'
 
 export default {
     name: 'app',
     components: {
         Navbar,
-        Post,
-        PostCreation
+        Posts,
+        Upload
     }
 }
 </script>

@@ -13,8 +13,9 @@
                 </div>
                 <!-- ?Navigation -->
                 <div class="col-3 d-flex mt-3 justify-content-end">
-                    <a class="nav-link" href="">Home</a>
-                    <a class="nav-link" href="">Discover</a>
+                    <router-link class="nav-link" to="/">Home</router-link>
+                    <router-link v-if="LoggedIn" class="nav-link" to="/upload">Upload</router-link>
+                    <router-link v-else class="nav-link disabled" to="/">Upload</router-link>
                 </div>
                 <!-- ?Profile -->
                 <div class="col-3 my-2">
