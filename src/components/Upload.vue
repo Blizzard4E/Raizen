@@ -18,8 +18,11 @@
                         <img class="mt-3" v-if="imageUrl" :src="imageUrl" alt="" width="70%" accept=".png, .jpg, .jpeg">
                         <p class="mt-1 text-danger" v-else>Please choose an image.</p>
                     </div>
-                    <button @click.prevent="uploadPost" class="btn btn-primary">Upload</button>
-                    <div class="text-success mt-2" v-if="uploaded">Upload Successful.</div>
+                    <div v-if="uploaded">
+                        <router-link to="/" class="btn btn-success">Return to Home Page</router-link>
+                        <div class="text-success mt-2">Upload Successful.</div>
+                    </div>
+                    <button v-else @click.prevent="uploadPost" class="btn btn-primary">Upload</button>
                 </div>
             </form>
         </div>
@@ -55,6 +58,7 @@ export default {
             const formData = new FormData();
             formData.append('file', this.img);
             formData.append('upload_preset', 'RaizenImages');
+            console.log('Saving Image...')
             axios({
                 url: 'https://api.cloudinary.com/v1_1/blizzard4e/upload',
                 method: 'POST',
@@ -63,18 +67,16 @@ export default {
                 },
                 data: formData
             }).then((res)=>{
+                console.log('Image Saved To:', res.data.secure_url);
                 this.uploaded = true;
-                const User = JSON.parse(localStorage.getItem('user'));
-                this.Post.image = res.data.secure_url;
-                axios.post('http://raizen-api.herokuapp.com/api/posts', {
+                const user_id = localStorage.getItem('user_id');
+                axios.post(`${process.env.VUE_APP_API}posts`, {
                     title: this.Post.title,
                     info: this.Post.info,
-                    image: this.Post.image,
-                    user: {
-                        profile: User.profile,
-                        name: User.name,
-                        email: User.email
-                    }
+                    imageUrl: res.data.secure_url,
+                    creator: user_id
+                }).then(res => {
+                    console.log(`Uploaded ${res.data}`);
                 });
             }); 
         }

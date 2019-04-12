@@ -4,20 +4,21 @@
             <!-- ?Profile -->
             <div class="m-2 d-flex">
                 <div class="d-flex">
-                    <img class="rounded-circle border border-dark" :src="post.user.profile" width="45px" height="45px">
+                    <img class="rounded-circle border border-dark" :src="post.creator.profile" width="45px" height="45px">
                     <div id="mainProfile">
-                        <div class="meduim mx-2">{{ post.user.name }}</div>
-                        <div class="small mx-2">{{ post.user.email }}</div>
+                        <div class="meduim mx-2">{{ post.creator.name }}</div>
+                        <div class="small mx-2">{{ post.creator.email }}</div>
                     </div>
                 </div>
             </div>
             <!-- ?Content-->
-            <img :src="post.image" width="100%">
+            <img :src="post.imageUrl" width="100%">
             <div class="m-2">
                 <div class="form-inline">
                     <div>
-                        <button class="mybtn far fa-heart"></button>
-                        <span class="ml-1 meduim">0 likes</span>
+                        <button v-if="!post.isLiked" @click.prevent="likePost(post._id)" class="mybtn far fa-heart"></button>
+                        <button v-else @click.prevent="likePost(post._id)" class="text-danger mybtn fas fa-heart"></button>
+                        <span class="ml-1 meduim">{{ post.likes.length }} likes</span>
                     </div>
                     <div class="ml-3">
                         <button class="mybtn far fa-comment"></button>
@@ -30,9 +31,11 @@
                 </div>
                 <div class="mt-1">
                     <div class="meduim">Comments:</div>
-                    <div class="comment mb-1">
-                        <span class="meduim">John:</span>
-                        <span class="ml-1">Nice Image.</span>
+                    <div class="mb-1">
+                        <div class="comment">
+                            <span class="meduim">John:</span>
+                            <span class="ml-1">Nice Image.</span>
+                        </div>
                     </div>
                     <form id="createComment" class="commentForm">
                         <input type="text" placeholder="Write a comment..." class="mt-1 comment-box border-0">
@@ -44,18 +47,45 @@
 </template>
 <script>
 import axios from 'axios';
+import { truncate } from 'fs';
 
 export default {
     name: 'Posts',
     data(){
         return {
-            posts: []
+            postComplete: false,
+            posts: [],
+            Liked: false
+        }
+    },
+    methods: {
+        getAllPosts(){
+            axios.get(`${process.env.VUE_APP_API}posts`).then((res) => {
+            this.posts = res.data;
+            const user_id = localStorage.getItem('user_id')
+            for(let i=0;i<this.posts.length;i++){
+                axios.post(`${process.env.VUE_APP_API}posts/${user_id}/likes`,{
+                    post_id: this.posts[i]._id
+                }).then(res => {
+                    this.posts[i].isLiked = res.data;
+                    this.$forceUpdate();
+                });
+            }
+            });
+        },
+        likePost(post_id){
+            const user_id = localStorage.getItem('user_id');
+            axios.post(`${process.env.VUE_APP_API}posts/like/${post_id}`, { 
+                post_id : post_id,
+                user_id: user_id
+            }).then(res=>{
+                this.Liked = res.data;
+                this.getAllPosts();
+            });
         }
     },
     mounted(){
-        axios.get('http://raizen-api.herokuapp.com/api/posts').then((res) => {
-            this.posts = res.data;
-        });
+        this.getAllPosts();
     }
 }
 </script>
