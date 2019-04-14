@@ -21,8 +21,10 @@
                         <span class="ml-1 meduim">{{ post.likes.length }} likes</span>
                     </div>
                     <div class="ml-3">
-                        <button class="mybtn far fa-comment"></button>
-                        <span class="ml-1 meduim">0 comments</span>
+                        <a href="#createComment" @click="focusComment()" class="mybtn">
+                            <i class="far fa-comment" style="color: black"></i>
+                        </a>
+                        <span class="ml-1 meduim">{{ post.comments.length }} comments</span>
                     </div>
                 </div>
                 <div class="info">
@@ -32,13 +34,19 @@
                 <div class="mt-1">
                     <div class="meduim">Comments:</div>
                     <div class="mb-1">
-                        <div class="comment">
-                            <span class="meduim">John:</span>
-                            <span class="ml-1">Nice Image.</span>
+                        <div class="comment" v-for="comment in post.comments" :key="comment.id">
+                            <span class="meduim">{{ comment.commenter.name }}:</span>
+                            <span class="ml-1">{{ comment.comment }}</span>
                         </div>
                     </div>
                     <form id="createComment" class="commentForm">
-                        <input type="text" placeholder="Write a comment..." class="mt-1 comment-box border-0">
+                        <div class="d-flex">
+                            <input id="commentInput" v-model="commentText" type="text" placeholder="Write a comment..." class="mt-1 comment-box border-0">
+                            <div class="ml-1 d-flex align-item-center">
+                                <button v-if="commentText == ''" class="mybtn" disabled>Post</button>
+                                <button @click.prevent="commentPost(post._id)" v-else class="sendbtn meduim">Post</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -55,7 +63,8 @@ export default {
         return {
             postComplete: false,
             posts: [],
-            Liked: false
+            Liked: false,
+            commentText: ''
         }
     },
     methods: {
@@ -75,13 +84,27 @@ export default {
         },
         likePost(post_id){
             const user_id = localStorage.getItem('user_id');
-            axios.post(`${process.env.VUE_APP_API}posts/like/${post_id}`, { 
-                post_id : post_id,
+            axios.post(`${process.env.VUE_APP_API}posts/like/${post_id}`, {
                 user_id: user_id
             }).then(res=>{
                 this.Liked = res.data;
                 this.getAllPosts();
             });
+        },
+        commentPost(post_id){
+            const user_id = localStorage.getItem('user_id');
+            axios.post(`${process.env.VUE_APP_API}posts/comment/${post_id}`, {
+                user_id: user_id,
+                comment_text: this.commentText
+            }).then(res=>{
+                this.commentText = '';
+                this.getAllPosts();
+            });
+        },
+        focusComment(){
+            setTimeout(function() {
+                document.getElementById("commentInput").focus();
+            }, 0);
         }
     },
     mounted(){
@@ -112,7 +135,13 @@ export default {
     .comment {
         font-size: 14px;
     }
-
+    .sendbtn {
+        transition: 0.25s;
+        color: rgb(0, 162, 255);
+        padding: 0;
+        background: transparent;
+        border: none;
+    }
     .mybtn {
         padding: 0;
         background: transparent;
@@ -124,14 +153,6 @@ export default {
         border-left: none;
         border-right: none;
         border-bottom: none;
-    }
-
-    .nav-link {
-        color: rgb(207, 207, 207);
-    }
-
-    .nav-link:hover {
-        color: black;
     }
 </style>
 

@@ -15,16 +15,14 @@
                 </div>
                 <!-- ?Navigation -->
                 <div class="col-3 d-flex mt-3 justify-content-end">
-                    <button class="nav-link bg-transparent border-0" @click.prevent="LogOut()">Sign Out</button>
                     <router-link class="nav-link" to="/">Home</router-link>
                     <router-link v-if="LoggedIn" class="nav-link" to="/upload">Upload</router-link>
-                    <router-link v-else class="nav-link disabled" to="/">Upload</router-link>
                 </div>
                 <!-- ?Profile -->
                 <div class="col-3 my-2">
                     <div class="d-flex" v-if="LoggedIn">
                         <div class="d-flex">
-                            <img class="rounded-circle border border-dark" :src="User.profile" width="60px" height="60px">
+                            <router-link to="/profile"><img class="rounded-circle myborder" :src="User.profile" width="60px" height="60px"></router-link>
                             <div id="mainProfile">
                                 <div class="meduim mt-2 mx-2">{{ User.name }}</div>
                                 <div class="d-inline-block text-truncate small mx-2" style="max-width:180px">{{ User.email }}</div>
@@ -32,7 +30,7 @@
                         </div>
                     </div>
                     <div class="d-flex" v-else>
-                        <img class="rounded-circle border border-dark" src="../assets/images/notlogin.png" width="60px"
+                        <img class="rounded-circle myborder" src="../assets/images/notlogin.png" width="60px"
                             height="60px">
                         <button class="nav-link m-2 bg-transparent border-0" @click.prevent="LogIn()">Sign In</button>
                     </div>
@@ -55,6 +53,7 @@ export default {
                 email: ''
             },
             LoggedIn: false,
+            userStored: ''
         }
     },
     methods: {
@@ -81,42 +80,23 @@ export default {
                     window.history.go();
                 });
             });
-        },
-        LogOut(){
-            this.LoggedIn = false;
-            this.$gAuth.signOut();
-            console.log('User Signed Out.');
-            window.history.go();
         }
     },
     mounted(){
-        if(JSON.parse(localStorage.getItem('user')) != null){
+        if(JSON.parse(localStorage.getItem('user'))){
             this.User=JSON.parse(localStorage.getItem('user'));
-            this.LoggedIn=true;
-        }
+            this.LoggedIn = true;
+        } 
     },
     watch: {
-        LoggedIn(val){
-            if(!val){
-                localStorage.removeItem('user');
-                localStorage.removeItem('user_id');
-                console.log('User Stored Data Removed.');
-            }
+        User(val){
+            val = JSON.parse(localStorage.getItem('user'));
         }
     }
 }
 </script>
 
 <style scoped>
-    .nav-link {
-        transition: 0.25s;
-        color: rgb(189, 188, 188);
-    }
-
-    .nav-link:hover {
-        color: rgb(59, 59, 59);
-    }
-
     .prime {
         font-family: prime;
     }

@@ -9,13 +9,15 @@
 import Navbar from './components/Navbar.vue'
 import Posts from './components/Posts.vue'
 import Upload from './components/Upload.vue'
+import Profile from './components/Profile.vue'
 
 export default {
     name: 'app',
     components: {
         Navbar,
         Posts,
-        Upload
+        Upload,
+        Profile
     }
 }
 </script>
@@ -37,6 +39,10 @@ export default {
 button:focus {
     outline: none;
 }
+.btn:focus, .btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
 * {
     margin: 0;
     font-family: Roboto-Regular;
@@ -44,7 +50,16 @@ button:focus {
 .meduim {
     font-family: Roboto-Meduim;
 }
-
+.myborder {
+    border: 1px solid rgb(189, 188, 188);
+}
+.nav-link {
+    transition: 0.25s;
+    color: rgb(189, 188, 188);
+}
+.nav-link:hover {
+    color: rgb(59, 59, 59);
+}
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
