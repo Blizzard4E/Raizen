@@ -21,7 +21,7 @@
                         <span class="ml-1 meduim">{{ post.likes.length }} likes</span>
                     </div>
                     <div class="ml-3">
-                        <a href="#createComment" @click="focusComment()" class="mybtn">
+                        <a @click.prevent="focusComment()" class="mybtn">
                             <i class="far fa-comment" style="color: black"></i>
                         </a>
                         <span class="ml-1 meduim">{{ post.comments.length }} comments</span>
@@ -39,12 +39,11 @@
                             <span class="ml-1">{{ comment.comment }}</span>
                         </div>
                     </div>
-                    <form id="createComment" class="commentForm">
+                    <form class="commentForm">
                         <div class="d-flex">
-                            <input id="commentInput" v-model="commentText" type="text" placeholder="Write a comment..." class="mt-1 comment-box border-0">
+                            <input id="commentInput" v-model="post.commentText" type="text" placeholder="Write a comment..." class="mt-1 px-1 comment-box border-0">
                             <div class="ml-1 d-flex align-item-center">
-                                <button v-if="commentText == ''" class="mybtn" disabled>Post</button>
-                                <button @click.prevent="commentPost(post._id)" v-else class="sendbtn meduim">Post</button>
+                                <button @click.prevent="commentPost(post._id, post.commentText)" class="btn sendbtn mt-1">Post</button>
                             </div>
                         </div>
                     </form>
@@ -62,9 +61,7 @@ export default {
     data(){
         return {
             postComplete: false,
-            posts: [],
-            Liked: false,
-            commentText: ''
+            posts: []
         }
     },
     methods: {
@@ -77,6 +74,7 @@ export default {
                     post_id: this.posts[i]._id
                 }).then(res => {
                     this.posts[i].isLiked = res.data;
+                    this.posts[i].commentText = '';
                     this.$forceUpdate();
                 });
             }
@@ -87,17 +85,15 @@ export default {
             axios.post(`${process.env.VUE_APP_API}posts/like/${post_id}`, {
                 user_id: user_id
             }).then(res=>{
-                this.Liked = res.data;
                 this.getAllPosts();
             });
         },
-        commentPost(post_id){
+        commentPost(post_id, commentText){
             const user_id = localStorage.getItem('user_id');
             axios.post(`${process.env.VUE_APP_API}posts/comment/${post_id}`, {
                 user_id: user_id,
-                comment_text: this.commentText
+                comment_text: commentText
             }).then(res=>{
-                this.commentText = '';
                 this.getAllPosts();
             });
         },
@@ -137,10 +133,13 @@ export default {
     }
     .sendbtn {
         transition: 0.25s;
-        color: rgb(0, 162, 255);
+        color: rgb(189, 188, 188);
         padding: 0;
         background: transparent;
         border: none;
+    }
+    .sendbtn:hover {
+        color: rgb(0, 162, 255);
     }
     .mybtn {
         padding: 0;
