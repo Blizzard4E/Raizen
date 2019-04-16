@@ -67,11 +67,11 @@ export default {
     data(){
         return{
             User: {
+                posts:[],
                 profile: '',
                 name: '',
                 email: ''
             },
-            posts: [],
             showPosts: false,
             showFollowers: false,
             showFollowing: false
@@ -104,7 +104,6 @@ export default {
         const user_id = localStorage.getItem('user_id');
         axios.get(`${process.env.VUE_APP_API}users/${user_id}`).then(res => {
             this.User = res.data[0];
-            console.log(this.User);
         });
         this.showPosts = true;
     }

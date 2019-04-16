@@ -72,7 +72,6 @@ export default {
                 name: '',
                 email: ''
             },
-            posts: [],
             showPosts: false,
             showFollowers: false,
             showFollowing: false
