@@ -1,28 +1,30 @@
 <template>
     <nav class="bg-white mynavbar sticky-top">
-        <div class="mycontainer">
+        <div class="mycontainer py-2">
             <div class="row">
                 <!-- ?Brand -->
-                <div class="col-3 h2 prime mt-3">
-                    <span class="prime text-danger">R</span>aizen
+                <div class="col-3 h2 prime d-flex justify-content-start align-items-center">
+                    <div class="brand prime">
+                        <span class="text-danger">R</span>aizen
+                    </div>
                 </div>
                 <!-- ?Search Bar -->
-                <div class="col-3 mt-3">
+                <div class="col-3 d-flex justify-content-center align-items-center">
                     <form class="form-inline">
                         <input class="form-control mysearchbar bg-light" type="search" placeholder="Search"
                             aria-label="Search">
                     </form>
                 </div>
                 <!-- ?Navigation -->
-                <div class="col-3 d-flex mt-3 justify-content-end">
+                <div class="col-3 d-flex justify-content-center align-items-center">
                     <router-link class="nav-link" to="/">Home</router-link>
                     <router-link v-if="LoggedIn" class="nav-link" to="/upload">Upload</router-link>
                 </div>
                 <!-- ?Profile -->
-                <div class="col-3 my-2">
+                <div class="col-3 d-flex justify-content-start align-items-center">
                     <div class="d-flex" v-if="LoggedIn">
                         <div class="d-flex">
-                            <router-link to="/profile"><img class="rounded-circle myborder" :src="User.profile" width="60px" height="60px"></router-link>
+                            <router-link to="/profile"><img class="rounded-circle myborder img-profile" :src="User.profile" width="68px" height="auto"></router-link>
                             <div id="mainProfile">
                                 <div class="meduim mt-2 mx-2">{{ User.name }}</div>
                                 <div class="d-inline-block text-truncate small mx-2" style="max-width:180px">{{ User.email }}</div>
@@ -97,14 +99,18 @@ export default {
 </script>
 
 <style scoped>
+    .img-profile:hover {
+        transform: scale(1.05);
+    }
+    .brand:hover {
+        transform: scale(1.05);
+    }
     .prime {
         font-family: prime;
     }
-
     .mynavbar {
-        box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
     }
-
     .mysearchbar {
         width: 400px !important;
     }

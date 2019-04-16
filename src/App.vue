@@ -31,10 +31,15 @@ export default {
     font-family: Roboto-Regular;
     src: url('assets/fonts/roboto-regular.ttf');
 }
-
 @font-face {
     font-family: Roboto-Meduim;
     src: url('assets/fonts/roboto-medium.ttf');
+}
+body {
+    background-color: #F8F9FA;
+}
+shadow {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 }
 button:focus {
     outline: none;
@@ -45,19 +50,24 @@ button:focus {
 }
 * {
     margin: 0;
+    transition: 0.2s;
     font-family: Roboto-Regular;
 }
 .meduim {
     font-family: Roboto-Meduim;
 }
+.mygrey {
+        color: rgb(189, 188, 188);
+}
 .myborder {
     border: 1px solid rgb(189, 188, 188);
 }
 .nav-link {
-    transition: 0.25s;
+    transition: 0.1s;
     color: rgb(189, 188, 188);
 }
 .nav-link:hover {
+    transform: scale(1.07);
     color: rgb(59, 59, 59);
 }
 

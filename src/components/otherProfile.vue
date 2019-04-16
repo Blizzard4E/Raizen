@@ -2,12 +2,12 @@
     <div class="container mt-4">
         <div class="row pb-4 border-bottom">
             <div class="col-2">
-                <img class="shadow rounded-circle myborder img-profile" :src="User.profile" width="120px" height="auto">
+                <img class="rounded-circle myborder img-profile" :src="User.profile" width="120px" height="auto">
             </div>
             <div class="col-10">
                 <div class="row mt-3">
                     <div class="col-5">
-                        <h4 class="meduim">{{ User.name }}</h4>
+                        <h4>{{ User.name }}</h4>
                         <div>{{ User.email }}</div>
                         <div class="d-flex justify-content-between">
                             <div class="meduim mt-2">{{ User.posts.length }} Posts</div>
@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-7">
                         <div class="d-flex justify-content-end">
-                            <button @click.prevent="LogOut()" class="btn btn-danger bubble shadow">Sign Out</button>
+                            <button @click.prevent="" class="btn btn-primary bubble shadow">Follow +</button>
                         </div>
                     </div>
                 </div>
@@ -67,6 +67,7 @@ export default {
     data(){
         return{
             User: {
+                posts: [],
                 profile: '',
                 name: '',
                 email: ''
@@ -81,7 +82,7 @@ export default {
         getPosts(){
             this.showPosts = true;
             this.showFollowers = false;
-            this.showFollowing = false;  
+            this.showFollowing = false;
         },
         getFollowers(){
             this.showPosts = false;
@@ -92,16 +93,10 @@ export default {
             this.showPosts = false;
             this.showFollowers = false;
             this.showFollowing = true;
-        },
-        LogOut(){
-            this.$gAuth.signOut();
-            localStorage.clear();
-            this.$router.push('/');
-            window.history.go();
         }
     },
     mounted(){
-        const user_id = localStorage.getItem('user_id');
+        const user_id = localStorage.getItem('others_id');
         axios.get(`${process.env.VUE_APP_API}users/${user_id}`).then(res => {
             this.User = res.data[0];
             console.log(this.User);
@@ -112,27 +107,4 @@ export default {
 </script>
 
 <style>
-    .img-profile:hover {
-        transform: scale(1.05);
-    }
-    .bubble:hover {
-        transform: scale(1.03);
-    }
-    .myborder-left {
-        border-left: 1px solid rgb(189, 188, 188);
-    }
-    .myborder-left {
-        border-right: 1px solid rgb(189, 188, 188);
-    }
-    .myimg {
-        transition: 0.2s;
-        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-        object-fit: cover;
-        object-position: 100%;
-        width: 100%;
-        height: 100%;
-    }
-    .myimg:hover {
-        transform: scale(1.05);
-    }
 </style>
