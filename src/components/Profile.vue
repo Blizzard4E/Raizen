@@ -111,27 +111,5 @@ export default {
 </script>
 
 <style>
-    .img-profile:hover {
-        transform: scale(1.05);
-    }
-    .bubble:hover {
-        transform: scale(1.03);
-    }
-    .myborder-left {
-        border-left: 1px solid rgb(189, 188, 188);
-    }
-    .myborder-left {
-        border-right: 1px solid rgb(189, 188, 188);
-    }
-    .myimg {
-        transition: 0.2s;
-        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-        object-fit: cover;
-        object-position: 100%;
-        width: 100%;
-        height: 100%;
-    }
-    .myimg:hover {
-        transform: scale(1.05);
-    }
+    
 </style>

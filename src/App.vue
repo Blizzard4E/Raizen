@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
-    <Navbar />
-    <router-view />
-  </div>
+    <div id="app">
+        <Navbar />
+        <router-view />
+    </div>
 </template>
 
 <script>
@@ -23,52 +23,93 @@ export default {
 </script>
 
 <style>
-@font-face {
-    font-family: prime;
-    src: url("assets/fonts/prime-regular.ttf");
-}
-@font-face {
-    font-family: Roboto-Regular;
-    src: url('assets/fonts/roboto-regular.ttf');
-}
-@font-face {
-    font-family: Roboto-Meduim;
-    src: url('assets/fonts/roboto-medium.ttf');
-}
-body {
-    background-color: #F8F9FA;
-}
-shadow {
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-}
-button:focus {
-    outline: none;
-}
-.btn:focus, .btn:active {
-  outline: none !important;
-  box-shadow: none !important;
-}
 * {
     margin: 0;
     transition: 0.2s;
     font-family: Roboto-Regular;
 }
+
+body {
+    background-color: #F8F9FA;
+}
+
+shadow {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+button:focus {
+    outline: none;
+}
+
+.btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 .meduim {
     font-family: Roboto-Meduim;
 }
+
 .mygrey {
-        color: rgb(189, 188, 188);
+    color: rgb(189, 188, 188);
 }
+
 .myborder {
     border: 1px solid rgb(189, 188, 188);
 }
+
 .nav-link {
     transition: 0.1s;
     color: rgb(189, 188, 188);
 }
+
 .nav-link:hover {
     transform: scale(1.07);
     color: rgb(59, 59, 59);
+}
+
+.img-profile:hover {
+    transform: scale(1.05);
+}
+
+.bubble:hover {
+    transform: scale(1.03);
+}
+
+.myborder-left {
+    border-left: 1px solid rgb(189, 188, 188);
+}
+
+.myborder-left {
+    border-right: 1px solid rgb(189, 188, 188);
+}
+
+.myimg {
+    transition: 0.2s;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+    object-position: 100%;
+    width: 100%;
+    height: 100%;
+}
+
+.myimg:hover {
+    transform: scale(1.05);
+}
+
+@font-face {
+    font-family: prime;
+    src: url("assets/fonts/prime-regular.ttf");
+}
+
+@font-face {
+    font-family: Roboto-Regular;
+    src: url('assets/fonts/roboto-regular.ttf');
+}
+
+@font-face {
+    font-family: Roboto-Meduim;
+    src: url('assets/fonts/roboto-medium.ttf');
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -92,6 +133,7 @@ button:focus {
         margin-right: 10%;
     }
 }
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
     .mycontainer {

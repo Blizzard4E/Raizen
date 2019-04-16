@@ -17,7 +17,8 @@
                     </div>
                     <div class="col-7">
                         <div class="d-flex justify-content-end">
-                            <button @click.prevent="" class="btn btn-primary bubble shadow">Follow +</button>
+                            <button v-if="!isFollowed" @click.prevent="Follow()" class="btn btn-primary bubble shadow">Follow +</button>
+                            <button v-else @click.prevent="" class="btn btn-danger bubble shadow">Unfollow</button>
                         </div>
                     </div>
                 </div>
@@ -74,7 +75,8 @@ export default {
             },
             showPosts: false,
             showFollowers: false,
-            showFollowing: false
+            showFollowing: false,
+            isFollowed: false
         }
     },
     methods: {
@@ -92,13 +94,27 @@ export default {
             this.showPosts = false;
             this.showFollowers = false;
             this.showFollowing = true;
+        },
+        Follow(){
+            const other_id = localStorage.getItem('others_id');
+            const user_id = localStorage.getItem('user_id');
+            axios.post(`${process.env.VUE_APP_API}users/${other_id}/follow`, {
+                user_id: user_id
+            }).then(res => {
+                console.log('Followed', other_id);
+            });
         }
     },
     mounted(){
-        const user_id = localStorage.getItem('others_id');
-        axios.get(`${process.env.VUE_APP_API}users/${user_id}`).then(res => {
+        const other_id = localStorage.getItem('others_id');
+        const user_id = localStorage.getItem('user_id');
+        axios.get(`${process.env.VUE_APP_API}users/${other_id}`).then(res => {
             this.User = res.data[0];
-            console.log(this.User);
+            if(this.User.includes(user_id)){
+                this.isFollowed = true;
+            }
+            console.log('Followers:',this.User.followers);
+            console.log('Following:',this.User.following);
         });
         this.showPosts = true;
     }

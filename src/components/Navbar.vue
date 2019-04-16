@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="d-flex" v-else>
-                        <img class="rounded-circle myborder" src="../assets/images/notlogin.png" width="60px"
+                        <img class="rounded-circle myborder" src="../assets/images/unknown.jpg" width="60px"
                             height="60px">
                         <button class="nav-link m-2 bg-transparent border-0" @click.prevent="LogIn()">Sign In</button>
                     </div>

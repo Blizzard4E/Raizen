@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-for="post in posts" :key="post.id" class="box my-3">
-            <!-- ?Profile -->
+            <!-- Profile -->
             <div class="m-2 d-flex">
                 <div class="d-flex">
                     <button class="mybtn" @click.prevent="openProfile(post.creator._id)">
@@ -13,9 +13,10 @@
                     </div>
                 </div>
             </div>
-            <!-- ?Content-->
+            <!-- Content-->
             <img class="img-post" :src="post.imageUrl" width="100%">
             <div class="m-2">
+                <!-- Like & Comments Buttons -->
                 <div class="form-inline">
                     <div>
                         <button v-if="!post.isLiked" @click.prevent="likePost(post._id)" class="mybtn far fa-heart"></button>
@@ -23,13 +24,13 @@
                         <span class="ml-1 meduim">{{ post.likes.length }} likes</span>
                     </div>
                     <div class="ml-3">
-                        <button @click.prevent="focusComment()" class="mybtn">
+                        <button @click.prevent="focusComment(post._id)" class="mybtn">
                             <i class="far fa-comment" style="color: black"></i>
                         </button>
                         <span class="ml-1 meduim">{{ post.comments.length }} comments</span>
                     </div>
                 </div>
-                <div class="info">
+                <div>
                     <div class="meduim title">{{ post.title }}</div>
                     <div class="desc">{{ post.info }}</div>
                 </div>
@@ -41,11 +42,16 @@
                             <span class="ml-1">{{ comment.comment }}</span>
                         </div>
                     </div>
-                    <form class="commentForm">
+                    <form class="border-top">
                         <div class="d-flex">
-                            <input id="commentInput" v-model="post.commentText" type="text" placeholder="Write a comment..." class="mt-1 px-1 comment-box border-0">
+                            <input :id="post._id" @input="inputChanged()" v-model="post.commentText" type="text" placeholder="Write a comment..." class="mt-1 px-1 comment-box border-0">
                             <div class="ml-1 d-flex align-item-center">
-                                <button @click.prevent="commentPost(post._id, post.commentText)" class="btn sendbtn mt-1 meduim">Post</button>
+                                <button v-if="post.commentText" @click.prevent="commentPost(post._id, post.commentText)" class="btn sendbtn mt-1 meduim">
+                                    <i class="far fa-paper-plane"></i>
+                                </button>
+                                <button v-else @click.prevent="commentPost(post._id, post.commentText)" class="mybtn mt-1 meduim mygrey" style="transform: scale(1.15)" disabled>
+                                    <i class="far fa-paper-plane"></i>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -71,7 +77,7 @@ export default {
             this.posts = res.data;
             const user_id = localStorage.getItem('user_id')
             for(let i=0;i<this.posts.length;i++){
-                axios.post(`${process.env.VUE_APP_API}posts/${user_id}/likes`,{
+                axios.post(`${process.env.VUE_APP_API}posts/${user_id}/checklikes`,{
                     post_id: this.posts[i]._id
                 }).then(res => {
                     this.posts[i].isLiked = res.data;
@@ -95,6 +101,7 @@ export default {
                 user_id: user_id,
                 comment_text: commentText
             }).then(res=>{
+                console.log('commented')
                 this.getAllPosts();
             });
         },
@@ -102,21 +109,26 @@ export default {
             localStorage.setItem('others_id', others_id);
             this.$router.push('/otherProfile');
         },
-        focusComment(){
+        focusComment(post_id){
             setTimeout(function() {
-                document.getElementById("commentInput").focus();
+                document.getElementById(`${post_id}`).focus();
             }, 0);
+        },
+        inputChanged(){
+            this.$forceUpdate();
         }
     },
     mounted(){
-        this.getAllPosts();
+        if(localStorage.getItem('user_id')){
+            this.getAllPosts();
+        }
     }
 }
 </script>
 
 <style scoped>
     .img-profile:hover {
-            transform: scale(1.02);
+        transform: scale(1.02);
     }
     .img-post:hover {
         transform: scale(1.012);
@@ -144,11 +156,14 @@ export default {
         font-size: 14px;
     }
     .sendbtn {
-        transition: 0.25s;
+        transform: scale(1.15);
         color: rgb(0, 162, 255);
         padding: 0;
         background: transparent;
         border: none;
+    }
+    .sendbtn:hover {
+        transform: scale(1.25);
     }
     .mybtn {
         transition: 0.1s;
@@ -158,12 +173,6 @@ export default {
     }
     .mybtn:hover {
         transform: scale(1.1);
-    }
-    .commentForm {
-        border: solid 1px rgb(216, 214, 214);
-        border-left: none;
-        border-right: none;
-        border-bottom: none;
     }
 </style>
 
