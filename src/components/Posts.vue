@@ -3,15 +3,15 @@
         <div v-for="post in posts" :key="post.id" class="box my-3">
             <!-- Profile -->
             <div class="m-2 d-flex">
-                <div class="d-flex">
-                    <button class="mybtn" @click.prevent="openProfile(post.creator._id)">
-                        <img class="rounded-circle border mygrey img-profile" :src="post.creator.profile" width="52px" height="52px">
+                <a @click.prevent="openProfile(post.creator._id)" class="d-flex bubble">
+                    <button class="mybtn">
+                        <img class="rounded-circle border mygrey" :src="post.creator.profile" width="52px" height="52px">
                     </button>
                     <div id="mainProfile">
                         <div class="meduim mx-2 mt-1">{{ post.creator.name }}</div>
                         <div class="small mx-2">{{ post.creator.email }}</div>
                     </div>
-                </div>
+                </a>
             </div>
             <!-- Content-->
             <img class="img-post" :src="post.imageUrl" width="100%">
@@ -46,10 +46,10 @@
                         <div class="d-flex">
                             <input :id="post._id" @input="inputChanged()" v-model="post.commentText" type="text" placeholder="Write a comment..." class="mt-1 px-1 comment-box border-0">
                             <div class="ml-1 d-flex align-item-center">
-                                <button v-if="post.commentText" @click.prevent="commentPost(post._id, post.commentText)" class="btn sendbtn mt-1 meduim">
+                                <button v-if="post.commentText" @click.prevent="commentPost(post._id, post.commentText)" class="btn sendbtn blue mt-1 meduim">
                                     <i class="far fa-paper-plane"></i>
                                 </button>
-                                <button v-else @click.prevent="commentPost(post._id, post.commentText)" class="mybtn mt-1 meduim mygrey" style="transform: scale(1.15)" disabled>
+                                <button v-else @click.prevent="commentPost(post._id, post.commentText)" class="mybtn mt-1 meduim grey" style="transform: scale(1.15)" disabled>
                                     <i class="far fa-paper-plane"></i>
                                 </button>
                             </div>
@@ -105,9 +105,11 @@ export default {
                 this.getAllPosts();
             });
         },
-        openProfile(others_id){
-            localStorage.setItem('others_id', others_id);
-            this.$router.push('/otherProfile');
+        openProfile(other_id){
+            localStorage.removeItem('other_id');
+            localStorage.setItem('other_id', other_id);
+            console.log(localStorage.getItem('other_id'));
+            this.$router.push('/Profile');
         },
         focusComment(post_id){
             setTimeout(function() {
@@ -127,6 +129,9 @@ export default {
 </script>
 
 <style scoped>
+    input:hover {
+        transform: scale(1.01);
+    }
     .img-profile:hover {
         transform: scale(1.02);
     }
@@ -137,7 +142,7 @@ export default {
         background: white;
         box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
         padding: 1px 0px;
-        border-radius: 3px;
+        border-radius: 4px;
     }
     .comment-box {
         width: 100%;
@@ -157,22 +162,13 @@ export default {
     }
     .sendbtn {
         transform: scale(1.15);
-        color: rgb(0, 162, 255);
         padding: 0;
         background: transparent;
         border: none;
     }
     .sendbtn:hover {
         transform: scale(1.25);
-    }
-    .mybtn {
-        transition: 0.1s;
-        padding: 0;
-        background: transparent;
-        border: none;
-    }
-    .mybtn:hover {
-        transform: scale(1.1);
+        color: #4290FF;
     }
 </style>
 

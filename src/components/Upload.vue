@@ -2,17 +2,17 @@
     <div class="container">
         <div class="row mt-3">
             <form class="col-12">
-                <h3>Create Post</h3>
+                <h3 class="bubble">Create Post</h3>
                 <div class="mt-3">
-                    <div class="form-group">
+                    <div class="form-group bubble">
                         <label class="h5">Title</label>
                         <input v-model="Post.title" class="form-control" type="text">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group bubble">
                         <label class="h5">Info</label>
                         <input v-model="Post.info" class="form-control" type="text">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group bubble">
                         <label class="h5">Image</label>
                         <input class="form-control-file" type="file" @change="previewImage">
                         <img class="mt-3" v-if="imageUrl" :src="imageUrl" alt="" width="70%" accept=".png, .jpg, .jpeg">
@@ -22,7 +22,7 @@
                         <router-link to="/" class="btn btn-success">Return to Home Page</router-link>
                         <div class="text-success mt-2">Upload Successful.</div>
                     </div>
-                    <button v-else @click.prevent="uploadPost" class="btn btn-primary">Upload</button>
+                    <button v-else @click.prevent="uploadPost" class="btn btn-primary bubble myshadow">Upload</button>
                 </div>
             </form>
         </div>
@@ -84,6 +84,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

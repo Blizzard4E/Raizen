@@ -33,14 +33,32 @@ body {
     background-color: #F8F9FA;
 }
 
-shadow {
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-}
-
 button:focus {
     outline: none;
 }
-
+.myshadow {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+.blue {
+    color: #4290FF;
+}
+.bg-blue {
+    background-color: #4290FF;
+}
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mybtn {
+        transition: 0.1s;
+        padding: 0;
+        background: transparent;
+        border: none;
+    }
+.mybtn:hover {
+    transform: scale(1.1);
+}
 .btn:active {
     outline: none !important;
     box-shadow: none !important;
@@ -50,7 +68,7 @@ button:focus {
     font-family: Roboto-Meduim;
 }
 
-.mygrey {
+.grey {
     color: rgb(189, 188, 188);
 }
 
@@ -58,21 +76,12 @@ button:focus {
     border: 1px solid rgb(189, 188, 188);
 }
 
-.nav-link {
-    transition: 0.1s;
-    color: rgb(189, 188, 188);
-}
-
-.nav-link:hover {
-    transform: scale(1.07);
-    color: rgb(59, 59, 59);
-}
-
 .img-profile:hover {
     transform: scale(1.05);
 }
 
 .bubble:hover {
+    cursor: pointer;
     transform: scale(1.03);
 }
 
@@ -86,7 +95,7 @@ button:focus {
 
 .myimg {
     transition: 0.2s;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
     object-fit: cover;
     object-position: 100%;
     width: 100%;
@@ -124,13 +133,20 @@ button:focus {
 @media only screen and (min-width: 768px) {}
 
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {}
+@media only screen and (min-width: 992px) {
+    .mysearchbar {
+        width: 300px !important;
+    }
+}
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
     .mycontainer {
         margin-left: 10%;
         margin-right: 10%;
+    }
+    .mysearchbar {
+        width: 350px !important;
     }
 }
 
