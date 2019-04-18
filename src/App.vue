@@ -63,7 +63,10 @@ button:focus {
     outline: none !important;
     box-shadow: none !important;
 }
-
+.btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
 .meduim {
     font-family: Roboto-Meduim;
 }
@@ -91,15 +94,6 @@ button:focus {
 
 .myborder-left {
     border-right: 1px solid rgb(189, 188, 188);
-}
-
-.myimg {
-    transition: 0.2s;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-    object-fit: cover;
-    object-position: 100%;
-    width: 100%;
-    height: 100%;
 }
 
 .myimg:hover {
