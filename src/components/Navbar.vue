@@ -30,7 +30,7 @@
                 <!-- ?Profile -->
                 <div class="col-3 justify-content-center">
                     <div class="d-none d-lg-block center">
-                        <a class="bubble" @click.prevent="openProfile()" v-if="LoggedIn">
+                        <a class="bubble" @click.prevent="openSelfProfile()" v-if="LoggedIn">
                             <div class="center">
                                 <img class="rounded-circle myborder img-profile" :src="User.profile" width="68px"
                                     height="auto">
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="d-lg-none d-xl-none center">
-                        <a class="bubble" @click.prevent="openProfile()" v-if="LoggedIn">
+                        <a class="bubble" @click.prevent="openSelfProfile()" v-if="LoggedIn">
                             <img class="rounded-circle myborder img-profile" :src="User.profile" width="68px"
                                 height="auto">
                         </a>
@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div class="col-2 center">
-                    <a class="bubble" @click.prevent="openProfile()" v-if="LoggedIn">
+                    <a class="bubble" @click.prevent="openSelfProfile()" v-if="LoggedIn">
                         <img class="rounded-circle myborder img-profile" :src="User.profile" width="68px" height="auto">
                     </a>
                     <a v-else class="bubble" @click.prevent="LogIn()">
@@ -138,7 +138,7 @@ export default {
                 });
             });
         },
-        openProfile() {
+        openSelfProfile() {
             localStorage.setItem('other_id', localStorage.getItem('user_id'));
             this.$router.push('/Profile');
             window.history.go();

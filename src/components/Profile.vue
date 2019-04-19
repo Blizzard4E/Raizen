@@ -68,7 +68,7 @@
             </div>
             <div v-if="showPosts">
                 <div class="row mt-3">
-                    <div v-for="post in User.posts" :key="post.id" class="col-4"><img class="myimg"
+                    <div v-for="post in User.posts" :key="post.id" class="col-4 p-1"><img class="myimg"
                             :src="post.imageUrl">
                     </div>
                 </div>
