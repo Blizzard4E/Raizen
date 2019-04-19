@@ -33,7 +33,7 @@
 import axios from 'axios';
 
 export default {
-    data(){
+    data() {
         return {
             uploaded: false,
             imageUrl: '',
@@ -45,16 +45,16 @@ export default {
         }
     },
     methods: {
-        previewImage(e){
+        previewImage(e) {
             const file = e.target.files[0];
             this.img = e.target.files[0];
-            if(file.type == 'image/jpeg' || file.type == 'image/jpg' || file.type == 'image/png'){
+            if (file.type == 'image/jpeg' || file.type == 'image/jpg' || file.type == 'image/png') {
                 this.imageUrl = URL.createObjectURL(file);
             } else {
                 return;
             }
         },
-        uploadPost(){
+        uploadPost() {
             const formData = new FormData();
             formData.append('file', this.img);
             formData.append('upload_preset', 'RaizenImages');
@@ -66,7 +66,7 @@ export default {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 data: formData
-            }).then((res)=>{
+            }).then((res) => {
                 console.log('Image Saved To:', res.data.secure_url);
                 this.uploaded = true;
                 const user_id = localStorage.getItem('user_id');
@@ -78,7 +78,7 @@ export default {
                 }).then(res => {
                     console.log(`Uploaded ${res.data}`);
                 });
-            }); 
+            });
         }
     }
 }

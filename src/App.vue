@@ -36,37 +36,53 @@ body {
 button:focus {
     outline: none;
 }
+
 .myshadow {
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
 }
+
 .blue {
     color: #4290FF;
 }
+
 .bg-blue {
     background-color: #4290FF;
 }
+
 .center {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .mybtn {
-        transition: 0.1s;
-        padding: 0;
-        background: transparent;
-        border: none;
-    }
+    transition: 0.1s;
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+input:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
 .mybtn:hover {
     transform: scale(1.1);
 }
+
 .btn:active {
     outline: none !important;
     box-shadow: none !important;
 }
+
 .btn:focus {
     outline: none !important;
     box-shadow: none !important;
 }
+
 .meduim {
     font-family: Roboto-Meduim;
 }
@@ -139,6 +155,7 @@ button:focus {
         margin-left: 10%;
         margin-right: 10%;
     }
+
     .mysearchbar {
         width: 350px !important;
     }
