@@ -22,7 +22,8 @@
                         <router-link to="/" class="btn btn-success">Return to Home Page</router-link>
                         <div class="text-success mt-2">Upload Successful.</div>
                     </div>
-                    <button v-else @click.prevent="uploadPost" class="btn btn-primary bubble myshadow">Upload</button>
+                    <div v-if="uploading" class="text-primary">Uploading...</div>
+                    <button v-if="!uploaded && !uploading" @click.prevent="uploadPost" class="btn btn-primary bubble myshadow">Upload</button>
                 </div>
             </form>
         </div>
@@ -36,6 +37,7 @@ export default {
     data() {
         return {
             uploaded: false,
+            uploading: false,
             imageUrl: '',
             Post: {
                 title: '',
@@ -58,7 +60,7 @@ export default {
             const formData = new FormData();
             formData.append('file', this.img);
             formData.append('upload_preset', 'RaizenImages');
-            console.log('Saving Image...')
+            this.uploading = true;
             axios({
                 url: 'https://api.cloudinary.com/v1_1/blizzard4e/upload',
                 method: 'POST',
@@ -69,6 +71,7 @@ export default {
             }).then((res) => {
                 console.log('Image Saved To:', res.data.secure_url);
                 this.uploaded = true;
+                this.uploading = false;
                 const user_id = localStorage.getItem('user_id');
                 axios.post(`${process.env.VUE_APP_API}posts`, {
                     title: this.Post.title,
