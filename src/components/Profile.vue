@@ -1,6 +1,6 @@
 <template>
-    <div class="container mt-4">
-        <div class="row pb-4 border-bottom">
+    <div class="container my-4">
+        <div class="row pb-4">
             <div class="col-3 center">
                 <img class="rounded-circle myborder img-profile" :src="User.profile" width="120px" height="auto">
             </div>
@@ -37,9 +37,8 @@
             </div>
         </div>
         <!-- PC -->
-        <div class="d-none d-md-block">
-            <div class="container-fluid mt-2 pb-2 border-bottom">
-                <div class="center">
+        <div class="row d-none d-md-block">
+            <div class="col-12 row center m-0 py-2 border-top border-bottom">
                     <div>
                         <button v-if="showPosts" class="btn">
                             <i class="mr-2 far fa-images"></i>Posts
@@ -64,56 +63,56 @@
                             <i class="mr-2 fas fa-walking"></i>Following
                         </button>
                     </div>
-                </div>
             </div>
-            <div v-if="showPosts">
-                <div class="row mt-3">
-                    <div v-for="post in User.posts" :key="post.id" class="col-4 p-1"><img class="myimg"
-                            :src="post.imageUrl">
-                    </div>
-                </div>
-            </div>
-            <div v-if="showFollowers">
-                <div class="row mt-3">
-                    <div class="col-3" v-for="follower in User.followers" :key="follower.id">
-                        <div class="box p-3">
-                            <div class="center">
-                                <img :src="follower.profile" class="rounded-circle myborder img-profile m-1"
-                                    width="100px" height="auto">
-                            </div>
-                            <div class="d-block text-center">
-                                <h5 class="meduim bubble">{{ follower.name }}</h5>
-                            </div>
-                            <div class="text-center">
-                                <button @click.prevent="openProfile(follower._id)" class="btn btn-primary py-2 px-3 myshadow bubble">More</button>
-                            </div>
+            <div class="col-12">
+                <div v-if="showPosts">
+                    <div class="row mt-3">
+                        <div v-for="post in User.posts" :key="post.id" class="col-4 p-1"><img class="myimg"
+                                :src="post.imageUrl">
                         </div>
                     </div>
                 </div>
-            </div>
-            <div v-if="showFollowing">
-                <div class="row mt-3">
-                    <div class="col-3" v-for="follow in User.following" :key="follow.id">
-                        <div class="box p-3">
-                            <div class="center">
-                                <img :src="follow.profile" class="rounded-circle myborder img-profile m-1" width="100px"
-                                    height="auto">
-                            </div>
-                            <div class="d-block text-center">
-                                <h5 class="meduim">{{ follow.name }}</h5>
-                            </div>
-                            <div class="text-center">
-                                <button @click.prevent="openProfile(follow._id)" class="btn btn-primary py-2 px-3">More</button>
-                            </div>
+                <div v-if="showFollowers">
+                    <div class="row mt-3">
+                        <div class="col-3 p-1" v-for="follower in User.followers" :key="follower.id">
+                            <button @click.prevent="openProfile(follower._id)" class="box p-3">
+                                <div class="center">
+                                    <img :src="follower.profile" class="rounded-circle myborder img-profile m-1"
+                                        width="100px" height="auto">
+                                </div>
+                                <div class="d-block text-center">
+                                    <h6 class="meduim bubble text-truncate">{{ follower.name }}</h6>
+                                </div>
+                                <div class="text-center">
+                                    <button @click.prevent="openProfile(follower._id)" class="btn btn-primary py-2 px-3 myshadow bubble">More</button>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="showFollowing">
+                    <div class="row mt-3">
+                        <div class="col-3 p-1" v-for="follow in User.following" :key="follow.id">
+                            <button @click.prevent="openProfile(follow._id)" class="box p-3">
+                                <div class="center">
+                                    <img :src="follow.profile" class="rounded-circle myborder img-profile m-1" width="100px"
+                                        height="auto">
+                                </div>
+                                <div class="d-block text-center">
+                                    <h6 class="meduim bubble text-truncate">{{ follow.name }}</h6>
+                                </div>
+                                <div class="text-center">
+                                    <button @click.prevent="openProfile(follow._id)" class="btn btn-primary py-2 px-3 myshadow">More</button>
+                                </div>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Mobile -->
-        <div class="d-md-none">
-            <div class="container-fluid mt-2 pb-2 border-bottom">
-                <div class="d-flex justify-content-around">
+        <div class="row d-md-none">
+            <div class="col-12 row center m-0 border-top border-bottom py-2">
                     <div>
                         <button v-if="showPosts" class="btn">
                             <i class="far fa-images fa-2x"></i>
@@ -138,47 +137,48 @@
                             <i class="fas fa-walking fa-2x"></i>
                         </button>
                     </div>
-                </div>
             </div>
-            <div v-if="showPosts">
-                <div class="row mt-3">
-                    <div v-for="post in User.posts" :key="post.id" class="col-6 p-1"><img class="myimg"
-                            :src="post.imageUrl">
-                    </div>
-                </div>
-            </div>
-            <div v-if="showFollowers">
-                <div class="row mt-3">
-                    <div class="col-6" v-for="follower in User.followers" :key="follower.id">
-                        <div class="box p-2">
-                            <div class="center">
-                                <img :src="follower.profile" class="rounded-circle myborder img-profile m-1"
-                                    width="100px" height="auto">
-                            </div>
-                            <div class="d-block text-center">
-                                <h5 class="meduim bubble">{{ follower.name }}</h5>
-                            </div>
-                            <div class="text-center">
-                                <button @click.prevent="openProfile(follower._id)" class="btn btn-primary py-1 px-3 myshadow bubble">More</button>
-                            </div>
+            <div class="col-12">
+                <div v-if="showPosts">
+                    <div class="row mt-3">
+                        <div v-for="post in User.posts" :key="post.id" class="col-6 p-1"><img class="myimg"
+                                :src="post.imageUrl">
                         </div>
                     </div>
                 </div>
-            </div>
-            <div v-if="showFollowing">
-                <div class="row mt-3">
-                    <div class="col-6" v-for="follow in User.following" :key="follow.id">
-                        <div class="box p-2">
-                            <div class="center">
-                                <img :src="follow.profile" class="rounded-circle myborder img-profile m-1" width="100px"
-                                    height="auto">
-                            </div>
-                            <div class="d-block text-center">
-                                <h5 class="meduim">{{ follow.name }}</h5>
-                            </div>
-                            <div class="text-center">
-                                <button @click.prevent="openProfile(follow._id)" class="btn btn-primary py-1 px-3 myshadow">More</button>
-                            </div>
+                <div v-if="showFollowers">
+                    <div class="row mt-3">
+                        <div class="col-6 p-1" v-for="follower in User.followers" :key="follower.id">
+                            <button @click.prevent="openProfile(follower._id)" class="box p-2">
+                                <div class="center">
+                                    <img :src="follower.profile" class="rounded-circle myborder img-profile m-1"
+                                        width="100px" height="auto">
+                                </div>
+                                <div class="d-block text-center">
+                                    <h6 class="meduim bubble d-inline-block text-truncate" style="max-width:130px">{{ follower.name }}</h6>
+                                </div>
+                                <div class="text-center">
+                                    <button @click.prevent="openProfile(follower._id)" class="btn btn-primary py-1 px-3 myshadow bubble">More</button>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="showFollowing">
+                    <div class="row mt-3">
+                        <div class="col-6 p-1" v-for="follow in User.following" :key="follow.id">
+                            <button @click.prevent="openProfile(follow._id)" class="box p-2">
+                                <div class="center">
+                                    <img :src="follow.profile" class="rounded-circle myborder img-profile m-1" width="100px"
+                                        height="auto">
+                                </div>
+                                <div class="d-block text-center">
+                                    <h6 class="meduim bubble d-inline-block text-truncate" style="max-width:130px">{{ follow.name }}</h6>
+                                </div>
+                                <div class="text-center">
+                                    <button @click.prevent="openProfile(follow._id)" class="btn btn-primary py-1 px-3 myshadow">More</button>
+                                </div>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -302,6 +302,9 @@ export default {
     }
 
     .box {
+        width: 100%;
+        margin: 0;
+        border: none;
         background: white;
         box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
         border-radius: 4px;

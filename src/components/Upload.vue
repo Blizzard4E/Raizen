@@ -19,10 +19,18 @@
                         <p class="mt-1 text-danger" v-else>Please choose an image.</p>
                     </div>
                     <div v-if="uploaded">
-                        <router-link to="/" class="btn btn-success">Return to Home Page</router-link>
-                        <div class="text-success mt-2">Upload Successful.</div>
+                        <div class="my-1">
+                            <router-link to="/" class="btn btn-success myshadow">Return to Home Page</router-link>
+                            <span class="mx-2 text-success mt-2">Upload Complete.</span>
+                        </div>
+                        <button @click.prevent="refreshPage()" class="my-1 btn btn-primary bubble myshadow">Upload Again</button>
                     </div>
-                    <div v-if="uploading" class="text-primary">Uploading...</div>
+                    <div v-if="uploading" class="text-primary d-flex align-items-center my-1">
+                        <div>Uploading</div>
+                        <div class="mx-1 spinner-border blue spinner-border-sm">
+                        <!-- Spinner -->
+                        </div>
+                    </div>
                     <button v-if="!uploaded && !uploading" @click.prevent="uploadPost" class="btn btn-primary bubble myshadow">Upload</button>
                 </div>
             </form>
@@ -82,6 +90,9 @@ export default {
                     console.log(`Uploaded ${res.data}`);
                 });
             });
+        },
+        refreshPage(){
+            window.history.go();
         }
     }
 }

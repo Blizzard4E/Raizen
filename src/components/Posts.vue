@@ -1,6 +1,13 @@
 <template>
     <div>
-        <div v-for="post in posts" :key="post.id" class="box my-3">
+        <div v-if="!showPosts">
+            <div class="mt-4 text-center">
+                <div class="spinner-border blue">
+                    <!-- Spinner -->
+                </div>
+            </div>
+        </div>
+        <div v-else v-for="post in posts" :key="post.id" class="box my-3">
             <!-- Profile -->
             <div class="m-2 d-flex">
                 <a @click.prevent="openProfile(post.creator._id)" class="d-flex bubble">
@@ -68,12 +75,14 @@ export default {
     name: 'Posts',
     data(){
         return {
-            posts: []
+            posts: [],
+            showPosts: false
         }
     },
     methods: {
         getAllPosts(){
             axios.get(`${process.env.VUE_APP_API}posts`).then((res) => {
+            this.showPosts = true;
             this.posts = res.data;
             const user_id = localStorage.getItem('user_id')
             for(let i=0;i<this.posts.length;i++){
