@@ -79,7 +79,7 @@
                 </div>
                 <div class="col-2 center">
                     <a class="bubble" @click.prevent="openSelfProfile()" v-if="LoggedIn">
-                        <img class="rounded-circle myborder img-profile" :src="User.profile" width="67px" height="auto">
+                        <img class="rounded-circle myborder img-profile" :src="User.profile" width="60px" height="auto">
                     </a>
                     <a v-else class="bubble" @click.prevent="LogIn()">
                         <img class="rounded-circle myborder" src="../assets/images/unknown.jpg" width="60px"
