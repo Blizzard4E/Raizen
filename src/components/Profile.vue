@@ -23,7 +23,8 @@
                                     class="btn btn-danger bubble shadow">Unfollow</button>
                             </div>
                             <div v-else class="d-flex justify-content-end">
-                                <button @click.prevent="LogOut()" class="btn btn-danger bubble myshadow">Sign Out</button>
+                                <button @click.prevent="LogOut()" class="btn btn-danger bubble myshadow">Sign
+                                    Out</button>
                             </div>
                         </div>
                         <div>{{ User.email }}</div>
@@ -47,30 +48,30 @@
             <!-- PC -->
             <div class="row d-none d-md-block">
                 <div class="col-12 row center m-0 py-2 border-top border-bottom">
-                        <div>
-                            <button v-if="showPosts" class="btn">
-                                <i class="mr-2 far fa-images"></i>Posts
-                            </button>
-                            <button v-else @click.prevent="getPosts()" class="btn grey">
-                                <i class="mr-2 far fa-images"></i>Posts
-                            </button>
-                        </div>
-                        <div class="border-left border-right">
-                            <button v-if="showFollowers" class="btn">
-                                <i class="mr-2 far fa-user"></i>Followers
-                            </button>
-                            <button v-else @click.prevent="getFollowers()" class="btn grey">
-                                <i class="mr-2 far fa-user"></i>Followers
-                            </button>
-                        </div>
-                        <div>
-                            <button v-if="showFollowing" class="btn">
-                                <i class="mr-2 fas fa-walking"></i>Following
-                            </button>
-                            <button v-else @click.prevent="getFollowing()" class="btn grey">
-                                <i class="mr-2 fas fa-walking"></i>Following
-                            </button>
-                        </div>
+                    <div>
+                        <button style="width:120px" v-if="showPosts" class="btn">
+                            <i class="mx-1 far fa-images"></i>Posts
+                        </button>
+                        <button style="width:120px" v-else @click.prevent="getPosts()" class="btn grey">
+                            <i class="mx-1 far fa-images"></i>Posts
+                        </button>
+                    </div>
+                    <div class="border-left border-right">
+                        <button style="width:120px" v-if="showFollowers" class="btn">
+                            <i class="mx-1 far fa-user"></i>Followers
+                        </button>
+                        <button style="width:120px" v-else @click.prevent="getFollowers()" class="btn grey">
+                            <i class="mx-1 far fa-user"></i>Followers
+                        </button>
+                    </div>
+                    <div>
+                        <button style="width:120px" v-if="showFollowing" class="btn">
+                            <i class="mx-1 fas fa-walking"></i>Following
+                        </button>
+                        <button style="width:120px" v-else @click.prevent="getFollowing()" class="btn grey">
+                            <i class="mx-1 fas fa-walking"></i>Following
+                        </button>
+                    </div>
                 </div>
                 <div class="col-12">
                     <div v-if="showPosts">
@@ -92,7 +93,8 @@
                                         <h6 class="meduim bubble text-truncate">{{ follower.name }}</h6>
                                     </div>
                                     <div class="text-center">
-                                        <button @click.prevent="openProfile(follower._id)" class="btn btn-primary py-2 px-3 myshadow bubble">More</button>
+                                        <button @click.prevent="openProfile(follower._id)"
+                                            class="btn btn-primary py-2 px-3 myshadow bubble">More</button>
                                     </div>
                                 </button>
                             </div>
@@ -103,14 +105,15 @@
                             <div class="col-3 p-1" v-for="follow in User.following" :key="follow.id">
                                 <button @click.prevent="openProfile(follow._id)" class="box p-3">
                                     <div class="center">
-                                        <img :src="follow.profile" class="rounded-circle myborder img-profile m-1" width="100px"
-                                            height="auto">
+                                        <img :src="follow.profile" class="rounded-circle myborder img-profile m-1"
+                                            width="100px" height="auto">
                                     </div>
                                     <div class="d-block text-center">
                                         <h6 class="meduim bubble text-truncate">{{ follow.name }}</h6>
                                     </div>
                                     <div class="text-center">
-                                        <button @click.prevent="openProfile(follow._id)" class="btn btn-primary py-2 px-3 myshadow">More</button>
+                                        <button @click.prevent="openProfile(follow._id)"
+                                            class="btn btn-primary py-2 px-3 myshadow">More</button>
                                     </div>
                                 </button>
                             </div>
@@ -120,31 +123,31 @@
             </div>
             <!-- Mobile -->
             <div class="row d-md-none">
-                <div class="col-12 row center m-0 border-top border-bottom py-2">
-                        <div>
-                            <button v-if="showPosts" class="btn">
-                                <i class="far fa-images fa-2x"></i>
-                            </button>
-                            <button v-else @click.prevent="getPosts()" class="btn grey">
-                                <i class="far fa-images fa-2x"></i>
-                            </button>
-                        </div>
-                        <div>
-                            <button v-if="showFollowers" class="btn">
-                                <i class="far fa-user fa-2x"></i>
-                            </button>
-                            <button v-else @click.prevent="getFollowers()" class="btn grey">
-                                <i class="far fa-user fa-2x"></i>
-                            </button>
-                        </div>
-                        <div>
-                            <button v-if="showFollowing" class="btn">
-                                <i class="fas fa-walking fa-2x"></i>
-                            </button>
-                            <button v-else @click.prevent="getFollowing()" class="btn grey">
-                                <i class="fas fa-walking fa-2x"></i>
-                            </button>
-                        </div>
+                <div class="col-12 row center justify-content-between m-0 border-top border-bottom py-2">
+                    <div>
+                        <button style="width: 55px" v-if="showPosts" class="btn">
+                            <i class="far fa-images fa-2x"></i>
+                        </button>
+                        <button style="width: 55px" v-else @click.prevent="getPosts()" class="btn grey">
+                            <i class="far fa-images fa-2x"></i>
+                        </button>
+                    </div>
+                    <div>
+                        <button style="width: 55px" v-if="showFollowers" class="btn">
+                            <i class="far fa-user fa-2x"></i>
+                        </button>
+                        <button style="width: 55px" v-else @click.prevent="getFollowers()" class="btn grey">
+                            <i class="far fa-user fa-2x"></i>
+                        </button>
+                    </div>
+                    <div>
+                        <button style="width: 55px" v-if="showFollowing" class="btn">
+                            <i class="fas fa-walking fa-2x"></i>
+                        </button>
+                        <button style="width: 55px" v-else @click.prevent="getFollowing()" class="btn grey">
+                            <i class="fas fa-walking fa-2x"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="col-12">
                     <div v-if="showPosts">
@@ -163,10 +166,12 @@
                                             width="100px" height="auto">
                                     </div>
                                     <div class="d-block text-center">
-                                        <h6 class="meduim bubble d-inline-block text-truncate" style="max-width:130px">{{ follower.name }}</h6>
+                                        <h6 class="meduim bubble d-inline-block text-truncate" style="max-width:130px">
+                                            {{ follower.name }}</h6>
                                     </div>
                                     <div class="text-center">
-                                        <button @click.prevent="openProfile(follower._id)" class="btn btn-primary py-1 px-3 myshadow bubble">More</button>
+                                        <button @click.prevent="openProfile(follower._id)"
+                                            class="btn btn-primary py-1 px-3 myshadow bubble">More</button>
                                     </div>
                                 </button>
                             </div>
@@ -177,14 +182,16 @@
                             <div class="col-6 p-1" v-for="follow in User.following" :key="follow.id">
                                 <button @click.prevent="openProfile(follow._id)" class="box p-2">
                                     <div class="center">
-                                        <img :src="follow.profile" class="rounded-circle myborder img-profile m-1" width="100px"
-                                            height="auto">
+                                        <img :src="follow.profile" class="rounded-circle myborder img-profile m-1"
+                                            width="100px" height="auto">
                                     </div>
                                     <div class="d-block text-center">
-                                        <h6 class="meduim bubble d-inline-block text-truncate" style="max-width:130px">{{ follow.name }}</h6>
+                                        <h6 class="meduim bubble d-inline-block text-truncate" style="max-width:130px">
+                                            {{ follow.name }}</h6>
                                     </div>
                                     <div class="text-center">
-                                        <button @click.prevent="openProfile(follow._id)" class="btn btn-primary py-1 px-3 myshadow">More</button>
+                                        <button @click.prevent="openProfile(follow._id)"
+                                            class="btn btn-primary py-1 px-3 myshadow">More</button>
                                     </div>
                                 </button>
                             </div>
