@@ -118,9 +118,9 @@ export default {
             this.$gAuth.signIn().then(GoogleUser => {
                 this.LoggedIn = true;
                 const user = {
-                    profile: GoogleUser.w3.Paa,
-                    name: GoogleUser.w3.ig,
-                    email: GoogleUser.w3.U3
+                    profile: GoogleUser.getBasicProfile().getImageUrl(),
+                    name: GoogleUser.getBasicProfile().getName(),
+                    email: GoogleUser.getBasicProfile().getEmail()
                 }
                 this.User = user;
                 localStorage.setItem('user', JSON.stringify(user));
