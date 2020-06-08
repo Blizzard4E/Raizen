@@ -118,17 +118,17 @@ input:focus {
 
 @font-face {
     font-family: prime;
-    src: url("assets/fonts/prime-regular.ttf");
+    src: url("../assets/fonts/prime-regular.ttf");
 }
 
 @font-face {
     font-family: Roboto-Regular;
-    src: url('assets/fonts/roboto-regular.ttf');
+    src: url('../assets/fonts/roboto-regular.ttf');
 }
 
 @font-face {
     font-family: Roboto-Meduim;
-    src: url('assets/fonts/roboto-medium.ttf');
+    src: url('../assets/fonts/roboto-medium.ttf');
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
